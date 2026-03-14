@@ -11,7 +11,7 @@ import SwiftUI
 struct MusicDemoApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DashboardScreen()
         }
     }
 }
