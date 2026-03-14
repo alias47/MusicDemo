@@ -2,7 +2,7 @@
 //  MusicDemoApp.swift
 //  MusicDemo
 //
-//  Created by Devfinity_LLC on 14/03/2026.
+//  Created by Atit Kayastha on 14/03/2026.
 //
 
 import SwiftUI
