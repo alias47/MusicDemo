@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MiniPlayerView: View {
+    let task: MusicTaskItem
     @Binding var expandSheet: Bool
     var animation: Namespace.ID
 
@@ -28,11 +29,12 @@ struct MiniPlayerView: View {
             }
             .frame(width: 56, height: 56)
 
-            Spacer(minLength: 0)
-            Text("Look What you made me do")
+            Text(task.title)
                 .fontWeight(.semibold)
                 .lineLimit(1)
                 .padding(.horizontal, 12)
+
+            Spacer(minLength: 0)
 
             HStack(spacing: 16) {
                 Button {
@@ -71,11 +73,26 @@ struct MiniPlayerView: View {
         )
         .contentShape(Rectangle())
         .onTapGesture {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                expandSheet.toggle()
-            }
+            openPlayer()
         }
-        .padding(.bottom, 30)
+        .gesture(
+            DragGesture(minimumDistance: 20)
+                .onEnded { value in
+                    let isSwipeUp = value.translation.height < -40
+                    let isMostlyVertical = abs(value.translation.height) > abs(value.translation.width)
+
+                    if isSwipeUp && isMostlyVertical {
+                        openPlayer()
+                    }
+                }
+        )
+        .padding(.bottom, 70)
+    }
+
+    private func openPlayer() {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            expandSheet = true
+        }
     }
 }
 
@@ -85,7 +102,7 @@ private struct MiniPlayerPreviewWrapper: View {
     var body: some View {
         VStack {
             MiniPlayerView(
-                expandSheet: .constant(false),
+                task: MusicTaskItem(title: "", subtitle: "", state: .completed, imageColor: .red), expandSheet: .constant(false),
                 animation: animation
             )
         }

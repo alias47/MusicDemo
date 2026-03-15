@@ -27,15 +27,8 @@ struct FullPlayerView: View {
                             .fill(.ultraThickMaterial)
                             .opacity(animatedContent ? 1 : 0)
                     })
-                    .overlay(alignment: .top) {
-                        MiniPlayerView(expandSheet: $expandedSheet, animation: animation)
-                            .allowsHitTesting(false)
-                            .opacity(animatedContent ? 0 : 1)
-                    }
                     .matchedGeometryEffect(id: "BGVIEW", in: animation)
                 VStack(spacing: 15) {
-
-
                     // Hero banner
                     GeometryReader {
                         let size = $0.size

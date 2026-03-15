@@ -11,7 +11,7 @@ extension View {
     func textShimmer(isActive: Bool) -> some View {
         modifier(TextShimmerModifier(isActive: isActive))
     }
-    
+
     var deviceCornerRadius: CGFloat {
         let key = "_displayCornerRadius"
         if let screen = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.screen {
@@ -22,5 +22,18 @@ extension View {
         }
         return 0
     }
-}
 
+    func animatedGlow(
+        isActive: Bool = true,
+        cornerRadius: CGFloat = 18,
+        padding: CGFloat = 0
+    ) -> some View {
+        modifier(
+            GlowBorderModifier(
+                isActive: isActive,
+                cornerRadius: cornerRadius,
+                padding: padding
+            )
+        )
+    }
+}

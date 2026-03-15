@@ -14,7 +14,7 @@ struct DashboardTabItem: Identifiable, Hashable {
 }
 
 struct DashboardTabContainer<
-    MiniPlayer: View,
+    BottomView: View,
     ExpandedPlayer: View,
     TabContent: View
 >: View {
@@ -22,30 +22,32 @@ struct DashboardTabContainer<
     let animation: Namespace.ID
 
     let tabs: [DashboardTabItem]
-    let miniPlayerHeight: CGFloat
+    let bottomViewHeight: CGFloat
     let bottomInsetSpacing: CGFloat
     let tabContent: (DashboardTabItem) -> TabContent
-    let miniPlayer: () -> MiniPlayer
+    let bottomView: () -> BottomView
     let expandedPlayer: () -> ExpandedPlayer
 
     init(
         isSheetExpanded: Binding<Bool>,
         animation: Namespace.ID,
         tabs: [DashboardTabItem],
-        miniPlayerHeight: CGFloat = 74,
+        bottomViewHeight: CGFloat = 74,
         bottomInsetSpacing: CGFloat = 49,
         @ViewBuilder tabContent: @escaping (DashboardTabItem) -> TabContent,
-        @ViewBuilder miniPlayer: @escaping () -> MiniPlayer,
+        @ViewBuilder bottomView: @escaping () -> BottomView,
         @ViewBuilder expandedPlayer: @escaping () -> ExpandedPlayer
     ) {
         self._isSheetExpanded = isSheetExpanded
         self.animation = animation
         self.tabs = tabs
-        self.miniPlayerHeight = miniPlayerHeight
+        self.bottomViewHeight = bottomViewHeight
         self.bottomInsetSpacing = bottomInsetSpacing
         self.tabContent = tabContent
-        self.miniPlayer = miniPlayer
+        self.bottomView = bottomView
         self.expandedPlayer = expandedPlayer
+        
+        TabBarAppearance.apply()
     }
 
     var body: some View {
@@ -64,7 +66,7 @@ struct DashboardTabContainer<
         .safeAreaInset(edge: .bottom) {
             customBottomSheet()
         }
-        .overlay {
+        .overlay(alignment: .bottom) {
             if isSheetExpanded {
                 expandedPlayer()
                     .transition(
@@ -87,18 +89,12 @@ struct DashboardTabContainer<
                 Rectangle()
                     .fill(.clear)
                     .overlay {
-                        miniPlayer()
+                        bottomView()
                     }
                     .matchedGeometryEffect(id: "BGVIEW", in: animation)
             }
         }
-        .frame(height: miniPlayerHeight)
-        .overlay(alignment: .bottom) {
-            Rectangle()
-                .fill(.gray.opacity(0.3))
-                .frame(height: 1)
-                .offset(y: -10)
-        }
+        .frame(height: bottomViewHeight)
         .offset(y: -bottomInsetSpacing)
     }
 }
@@ -106,4 +102,20 @@ struct DashboardTabContainer<
 #Preview {
     DashboardScreen()
         .preferredColorScheme(.dark)
+}
+
+enum TabBarAppearance {
+    static func apply() {
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .black
+        appearance.shadowColor = UIColor.white.withAlphaComponent(0.18)
+        appearance.shadowImage = UIImage()
+
+        UITabBar.appearance().standardAppearance = appearance
+
+        if #available(iOS 15.0, *) {
+            UITabBar.appearance().scrollEdgeAppearance = appearance
+        }
+    }
 }

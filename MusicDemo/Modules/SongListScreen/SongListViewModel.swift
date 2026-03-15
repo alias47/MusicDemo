@@ -57,31 +57,10 @@ enum MusicTaskState: Equatable {
     }
 }
 
-struct MusicTaskItem: Identifiable, Equatable {
-    let id: UUID
-    var title: String
-    var subtitle: String
-    var state: MusicTaskState
-    var imageColor: Color
-
-    init(
-        id: UUID = UUID(),
-        title: String,
-        subtitle: String,
-        state: MusicTaskState,
-        imageColor: Color
-    ) {
-        self.id = id
-        self.title = title
-        self.subtitle = subtitle
-        self.state = state
-        self.imageColor = imageColor
-    }
-}
-
 @MainActor
 final class SongListViewModel: ObservableObject {
     @Published private(set) var tasks: [MusicTaskItem] = []
+    @Published var selectedTask: MusicTaskItem?
 
     private var runningTasks: [UUID: Task<Void, Never>] = [:]
 
@@ -93,9 +72,16 @@ final class SongListViewModel: ObservableObject {
         runningTasks.values.forEach { $0.cancel() }
     }
 
-    func startNewGeneration() {
+    func selectTask(_ task: MusicTaskItem) {
+        selectedTask = task
+    }
+
+    func startNewGeneration(title: String) {
+        let trimmedTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedTitle.isEmpty else { return }
+
         let newTask = MusicTaskItem(
-            title: "Create a funky house song with...",
+            title: trimmedTitle,
             subtitle: "",
             state: .generating(
                 progress: 0,
@@ -116,6 +102,10 @@ final class SongListViewModel: ObservableObject {
         runningTasks[id]?.cancel()
         runningTasks[id] = nil
 
+        if selectedTask?.id == id {
+            selectedTask = nil
+        }
+
         withAnimation(.easeInOut) {
             tasks.removeAll { $0.id == id }
         }
@@ -127,8 +117,11 @@ final class SongListViewModel: ObservableObject {
     ) {
         guard let index = tasks.firstIndex(where: { $0.id == id }) else { return }
         update(&tasks[index])
-    }
 
+        if selectedTask?.id == id {
+            selectedTask = tasks[index]
+        }
+    }
     private func simulateGeneration(for id: UUID) {
         runningTasks[id]?.cancel()
 
@@ -187,6 +180,7 @@ final class SongListViewModel: ObservableObject {
                         }
                     }
                 }
+                Haptic.notify(.success)
                 self.runningTasks[id] = nil
             } catch {
                 self.runningTasks[id] = nil

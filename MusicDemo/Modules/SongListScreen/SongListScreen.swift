@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct SongListScreen: View {
-    @StateObject private var viewModel = SongListViewModel()
+    @ObservedObject var viewModel: SongListViewModel
 
     var body: some View {
         ZStack {
@@ -25,6 +25,10 @@ struct SongListScreen: View {
                                     viewModel.cancelTask(id: task.id)
                                 }
                             )
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                viewModel.selectTask(task)
+                            }
                             .transition(.move(edge: .top).combined(with: .opacity))
                         }
                     }
@@ -42,20 +46,11 @@ struct SongListScreen: View {
                 .resizable()
                 .frame(width: 36, height: 36)
 
-            Text("Songs")
+            Text("MusicGPT")
                 .font(.title3.weight(.semibold))
                 .foregroundStyle(.white)
 
             Spacer()
-
-            Button(action: viewModel.startNewGeneration) {
-                Text("Start Generation")
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundStyle(.black)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .background(Color.white, in: Capsule())
-            }
         }
         .padding(.horizontal)
         .padding(.vertical, 10)
@@ -63,5 +58,5 @@ struct SongListScreen: View {
 }
 
 #Preview {
-    SongListScreen()
+    SongListScreen(viewModel: .init())
 }
