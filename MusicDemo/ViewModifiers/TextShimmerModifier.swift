@@ -21,7 +21,7 @@ struct TextShimmerModifier: ViewModifier {
                                 .clear,
                                 .black.opacity(0.15),
                                 .white.opacity(0.85),
-                                .white.opacity(0.45),
+                                .black.opacity(0.45),
                                 .clear
                             ],
                             startPoint: .leading,

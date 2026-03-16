@@ -173,6 +173,7 @@ struct PromptTextFieldView: View {
                     .background(.ultraThinMaterial)
                     .clipShape(Circle())
             }
+            .disabled(text.isEmpty)
         }
         .padding(.horizontal, 16)
         .background(

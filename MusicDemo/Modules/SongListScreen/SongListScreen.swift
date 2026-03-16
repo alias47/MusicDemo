@@ -39,14 +39,14 @@ struct SongListScreen: View {
             }
         }
     }
-
+    // MARK: Header view
     private var headerView: some View {
         HStack(spacing: 10) {
             Image(.logo)
                 .resizable()
                 .frame(width: 36, height: 36)
 
-            Text("MusicGPT")
+            Text("Music")
                 .font(.title3.weight(.semibold))
                 .foregroundStyle(.white)
 

@@ -72,7 +72,7 @@ struct GeneratingRowView: View {
     }
 
     private var glowOpacity: CGFloat {
-        0.25 + (0.45 * progressFactor)
+        0.45 + (0.45 * progressFactor)
     }
 
     private var showsDot: Bool {
@@ -88,7 +88,7 @@ struct GeneratingRowView: View {
             Circle()
                 .fill(
                     Color(red: 170 / 255, green: 0, blue: 1)
-                        .opacity(0.18 + glowOpacity * 0.45)
+                        .opacity(0.18 + glowOpacity * 0.75)
                 )
                 .frame(width: 68, height: 68)
                 .blur(radius: 22)
@@ -98,7 +98,7 @@ struct GeneratingRowView: View {
             Circle()
                 .fill(
                     Color(red: 1, green: 98 / 255, blue: 0)
-                        .opacity(0.12 + glowOpacity * 0.35)
+                        .opacity(0.12 + glowOpacity * 0.65)
                 )
                 .frame(width: 64, height: 64)
                 .blur(radius: 20)
@@ -111,13 +111,12 @@ struct GeneratingRowView: View {
                         .opacity(0.15 + 0.20 * progressFactor),
                     Color.clear,
                     Color(red: 1, green: 98 / 255, blue: 0)
-                        .opacity(0.08 + 0.12 * progressFactor)
+                        .opacity(0.08 + 0.12 * progressFactor),
                 ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
 
-            // Final artwork reveal near end
             Image(.album)
                 .resizable()
                 .scaledToFill()
@@ -146,8 +145,20 @@ struct GeneratingRowView: View {
         .frame(width: 64, height: 64)
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .overlay {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(Color.white.opacity(0.06), lineWidth: 1)
+            ZStack {
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .stroke(Color.white.opacity(0.06), lineWidth: 1)
+
+                if progress < 100 {
+                    RotatingBorderView(
+                        cornerRadius: 16,
+                        lineWidth: 2,
+                        glowLineWidth: 6,
+                        duration: 2.2,
+                        color: .gradientPink
+                    )
+                }
+            }
         }
     }
 
