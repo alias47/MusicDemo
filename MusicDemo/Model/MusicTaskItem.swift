@@ -12,6 +12,7 @@ struct MusicTaskItem: Identifiable, Equatable {
     var title: String
     var subtitle: String
     var state: MusicTaskState
+    var image: ImageResource
     var imageColor: Color
 
     init(
@@ -19,12 +20,14 @@ struct MusicTaskItem: Identifiable, Equatable {
         title: String,
         subtitle: String,
         state: MusicTaskState,
+        image: ImageResource,
         imageColor: Color
     ) {
         self.id = id
         self.title = title
         self.subtitle = subtitle
         self.state = state
+        self.image = image
         self.imageColor = imageColor
     }
 }

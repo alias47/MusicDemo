@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct DashboardScreen: View {
-    @StateObject private var keyboard = KeyboardObserver()
     @State private var expandSheet: Bool = false
     @Namespace private var animation
     @State private var showMiniMedia: Bool = false
@@ -76,7 +75,7 @@ struct DashboardScreen: View {
         } expandedPlayer: {
             FullPlayerView(
                 expandedSheet: $expandSheet,
-                animation: animation
+                animation: animation, image: songListViewModel.selectedTask?.image ?? .megadeth
             )
         }
         .simultaneousGesture(
@@ -239,45 +238,4 @@ struct DashboardScreen: View {
     DashboardScreen()
         .preferredColorScheme(.dark)
 }
-
-import Combine
-import SwiftUI
-
-final class KeyboardObserver: ObservableObject {
-    @Published var keyboardHeight: CGFloat = 0
-    @Published var isVisible: Bool = false
-
-    private var cancellables = Set<AnyCancellable>()
-
-    init() {
-        let willChange = NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)
-        let willHide = NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
-
-        willChange
-            .merge(with: willHide)
-            .receive(on: RunLoop.main)
-            .sink { [weak self] notification in
-                guard let self else { return }
-
-                if notification.name == UIResponder.keyboardWillHideNotification {
-                    self.keyboardHeight = 0
-                    self.isVisible = false
-                    return
-                }
-
-                guard
-                    let userInfo = notification.userInfo,
-                    let frame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
-                else {
-                    return
-                }
-
-                let screenHeight = UIScreen.main.bounds.height
-                let height = max(0, screenHeight - frame.minY)
-
-                self.keyboardHeight = height
-                self.isVisible = height > 0
-            }
-            .store(in: &cancellables)
-    }
-}
+ 

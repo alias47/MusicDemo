@@ -18,7 +18,7 @@ struct MiniPlayerView: View {
                 if !expandSheet {
                     GeometryReader {
                         let size = $0.size
-                        Image(.album)
+                        Image(task.image)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: size.width, height: size.height)
@@ -102,7 +102,7 @@ private struct MiniPlayerPreviewWrapper: View {
     var body: some View {
         VStack {
             MiniPlayerView(
-                task: MusicTaskItem(title: "", subtitle: "", state: .completed, imageColor: .red), expandSheet: .constant(false),
+                task: MusicTaskItem(title: "", subtitle: "", state: .completed, image: .beatles, imageColor: .red), expandSheet: .constant(false),
                 animation: animation
             )
         }

@@ -32,11 +32,11 @@ struct SongListScreen: View {
                             .transition(.move(edge: .top).combined(with: .opacity))
                         }
                     }
-                    .padding(.horizontal)
                     .padding(.top, 16)
                     .padding(.bottom, 20)
                 }
             }
+            .padding(.horizontal, 16)
         }
     }
     // MARK: Header view
@@ -46,13 +46,12 @@ struct SongListScreen: View {
                 .resizable()
                 .frame(width: 36, height: 36)
 
-            Text("Music")
+            Text("MusicGPT")
                 .font(.title3.weight(.semibold))
                 .foregroundStyle(.white)
 
             Spacer()
         }
-        .padding(.horizontal)
         .padding(.vertical, 10)
     }
 }

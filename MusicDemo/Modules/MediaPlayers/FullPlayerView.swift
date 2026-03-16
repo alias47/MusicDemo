@@ -10,6 +10,7 @@ import SwiftUI
 struct FullPlayerView: View {
     @Binding var expandedSheet: Bool
     var animation: Namespace.ID
+    var image: ImageResource
 
     @State private var animatedContent: Bool = false
 
@@ -33,7 +34,7 @@ struct FullPlayerView: View {
                     GeometryReader {
                         let size = $0.size
 
-                        Image(.album)
+                        Image(image)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: size.width, height: size.height)
@@ -91,7 +92,7 @@ private struct FullPlayerPreviewWrapper: View {
     var body: some View {
         FullPlayerView(
             expandedSheet: $expandedSheet,
-            animation: animation
+            animation: animation, image: .beatles
         )
     }
 }

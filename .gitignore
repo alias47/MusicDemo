@@ -1,0 +1,53 @@
+# macOS
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Xcode
+
+build/
+DerivedData/
+*.xcworkspace
+!default.xcworkspace
+xcuserdata/
+*.xcuserstate
+
+# Xcode user data
+
+*.xcworkspace/xcuserdata
+*.xcodeproj/xcuserdata
+
+# Swift Package Manager
+
+.build/
+Packages/
+Package.resolved
+
+# CocoaPods
+
+Pods/
+
+# Carthage
+
+Carthage/Build/
+
+# Fastlane
+
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Archives
+
+*.xcarchive
+
+# Logs
+
+*.log
+
+# Temporary files
+
+*.swp
+*.tmp

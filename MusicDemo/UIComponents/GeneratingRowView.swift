@@ -12,6 +12,7 @@ struct GeneratingRowView: View {
     let progress: Int
     let status: String
     let showSkip: Bool
+    let image: ImageResource
     let onSkip: () -> Void
 
     @State private var glowOffset: CGFloat = -10
@@ -49,7 +50,7 @@ struct GeneratingRowView: View {
 
             versionBadge
         }
-        .padding(8)
+        .padding(.vertical, 8)
         .background(progressBackground)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .onAppear {
@@ -117,7 +118,8 @@ struct GeneratingRowView: View {
                 endPoint: .bottomTrailing
             )
 
-            Image(.album)
+//            Image(.album)
+            Image(image)
                 .resizable()
                 .scaledToFill()
                 .opacity(artworkOpacity)

@@ -12,6 +12,7 @@ struct MusicDemoApp: App {
     var body: some Scene {
         WindowGroup {
             DashboardScreen()
+                .preferredColorScheme(.dark)
         }
     }
 }

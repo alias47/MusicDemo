@@ -40,6 +40,7 @@ struct AppTextView: UIViewRepresentable {
         textView.tintColor = .white
         textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         textView.text = text
+        textView.keyboardAppearance = .dark
 
         DispatchQueue.main.async {
             recalculateHeight(view: textView)
@@ -170,7 +171,7 @@ struct PromptTextFieldView: View {
                     .font(.system(size: 14, weight: .bold))
                     .foregroundColor(.black)
                     .frame(width: 30, height: 30)
-                    .background(.ultraThinMaterial)
+                    .background( text.isEmpty ? Color.createButton : Color.white)
                     .clipShape(Circle())
             }
             .disabled(text.isEmpty)

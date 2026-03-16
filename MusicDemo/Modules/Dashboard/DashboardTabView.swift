@@ -101,7 +101,6 @@ struct DashboardTabContainer<
 
 #Preview {
     DashboardScreen()
-        .preferredColorScheme(.dark)
 }
 
 enum TabBarAppearance {

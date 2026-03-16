@@ -18,7 +18,7 @@ struct MusicGenarationTypeRow: View {
                 title: task.title,
                 progress: task.state.progressValue,
                 status: task.state.statusText,
-                showSkip: task.state.shouldShowSkip,
+                showSkip: task.state.shouldShowSkip, image: task.image,
                 onSkip: onSkip
             )
 
@@ -26,14 +26,14 @@ struct MusicGenarationTypeRow: View {
             CompletedRowView(
                 title: task.title,
                 subtitle: task.subtitle,
-                artwork: .album,
+                artwork: task.image,
                 showsStatusDot: false
             )
         case .new:
             CompletedRowView(
                 title: task.title,
                 subtitle: task.subtitle,
-                artwork: .album
+                artwork: task.image
             )
         }
     }

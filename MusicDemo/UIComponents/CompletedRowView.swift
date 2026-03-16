@@ -57,6 +57,5 @@ struct CompletedRowView: View {
             .buttonStyle(.plain)
         }
         .padding(.vertical, 8)
-        .padding(.horizontal, 8)
     }
 }

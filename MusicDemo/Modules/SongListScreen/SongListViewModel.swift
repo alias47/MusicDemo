@@ -88,7 +88,7 @@ final class SongListViewModel: ObservableObject {
                 status: "Starting AI audio engine",
                 showSkip: false
             ),
-            imageColor: .clear
+            image: .album, imageColor: .clear
         )
 
         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
@@ -196,24 +196,28 @@ final class SongListViewModel: ObservableObject {
                 title: "Language Training",
                 subtitle: "Create a presentation that explains how lan...",
                 state: .completed,
+                image: .beatles,
                 imageColor: .white
             ),
             MusicTaskItem(
                 title: "Bam Bam",
                 subtitle: "Generate a script for a play about the powe...",
                 state: .completed,
+                image: .megadeth,
                 imageColor: .gray
             ),
             MusicTaskItem(
                 title: "Enemy",
                 subtitle: "Compose a poem about the meaning...",
                 state: .completed,
+                image: .megadeth,
                 imageColor: .blue
             ),
             MusicTaskItem(
                 title: "Balenciaga",
                 subtitle: "Generate a poem about a los...",
                 state: .completed,
+                image: .beatles,
                 imageColor: .purple
             )
         ]
