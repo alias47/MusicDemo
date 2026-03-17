@@ -15,26 +15,7 @@ struct SongListScreen: View {
 
             VStack(alignment: .leading, spacing: 0) {
                 headerView
-
-                ScrollView {
-                    LazyVStack(spacing: 8) {
-                        ForEach(viewModel.tasks) { task in
-                            MusicGenarationTypeRow(
-                                task: task,
-                                onSkip: {
-                                    viewModel.cancelTask(id: task.id)
-                                }
-                            )
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                viewModel.selectTask(task)
-                            }
-                            .transition(.move(edge: .top).combined(with: .opacity))
-                        }
-                    }
-                    .padding(.top, 16)
-                    .padding(.bottom, 20)
-                }
+                listView
             }
             .padding(.horizontal, 16)
         }
@@ -53,6 +34,29 @@ struct SongListScreen: View {
             Spacer()
         }
         .padding(.vertical, 10)
+    }
+    
+    // MARK: List view
+    private var listView: some View {
+        ScrollView {
+            LazyVStack(spacing: 8) {
+                ForEach(viewModel.tasks) { task in
+                    MusicGenarationTypeRow(
+                        task: task,
+                        onSkip: {
+                            viewModel.cancelTask(id: task.id)
+                        }
+                    )
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        viewModel.selectTask(task)
+                    }
+                    .transition(.move(edge: .top).combined(with: .opacity))
+                }
+            }
+            .padding(.top, 16)
+            .padding(.bottom, 20)
+        }
     }
 }
 

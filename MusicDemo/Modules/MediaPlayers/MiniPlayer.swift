@@ -79,9 +79,9 @@ struct MiniPlayerView: View {
             DragGesture(minimumDistance: 20)
                 .onEnded { value in
                     let isSwipeUp = value.translation.height < -40
-                    let isMostlyVertical = abs(value.translation.height) > abs(value.translation.width)
+                    let isVertical = abs(value.translation.height) > abs(value.translation.width)
 
-                    if isSwipeUp && isMostlyVertical {
+                    if isSwipeUp && isVertical {
                         openPlayer()
                     }
                 }

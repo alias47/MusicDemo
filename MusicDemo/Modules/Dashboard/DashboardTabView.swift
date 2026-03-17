@@ -38,7 +38,7 @@ struct DashboardTabContainer<
         @ViewBuilder bottomView: @escaping () -> BottomView,
         @ViewBuilder expandedPlayer: @escaping () -> ExpandedPlayer
     ) {
-        self._isSheetExpanded = isSheetExpanded
+        _isSheetExpanded = isSheetExpanded
         self.animation = animation
         self.tabs = tabs
         self.bottomViewHeight = bottomViewHeight
@@ -46,7 +46,7 @@ struct DashboardTabContainer<
         self.tabContent = tabContent
         self.bottomView = bottomView
         self.expandedPlayer = expandedPlayer
-        
+
         TabBarAppearance.apply()
     }
 
@@ -64,7 +64,7 @@ struct DashboardTabContainer<
         .toolbarBackground(.ultraThickMaterial, for: .tabBar)
         .toolbar(isSheetExpanded ? .hidden : .visible, for: .tabBar)
         .safeAreaInset(edge: .bottom) {
-            customBottomSheet()
+            fullMediaView()
         }
         .overlay(alignment: .bottom) {
             if isSheetExpanded {
@@ -79,8 +79,10 @@ struct DashboardTabContainer<
         }
     }
 
+    // MARK: Full media view
+
     @ViewBuilder
-    private func customBottomSheet() -> some View {
+    private func fullMediaView() -> some View {
         ZStack {
             if isSheetExpanded {
                 Rectangle()
@@ -101,20 +103,4 @@ struct DashboardTabContainer<
 
 #Preview {
     DashboardScreen()
-}
-
-enum TabBarAppearance {
-    static func apply() {
-        let appearance = UITabBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .black
-        appearance.shadowColor = UIColor.white.withAlphaComponent(0.18)
-        appearance.shadowImage = UIImage()
-
-        UITabBar.appearance().standardAppearance = appearance
-
-        if #available(iOS 15.0, *) {
-            UITabBar.appearance().scrollEdgeAppearance = appearance
-        }
-    }
 }

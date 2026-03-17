@@ -50,8 +50,8 @@ struct CompletedRowView: View {
 
             Button {
             } label: {
-                Image(systemName: "ellipsis")
-                    .foregroundStyle(.gray)
+                Image(.threeDots)
+                    .resizable()
                     .frame(width: 32, height: 32)
             }
             .buttonStyle(.plain)

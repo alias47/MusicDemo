@@ -1,8 +1,8 @@
 //
-//  SongRowView.swift
+//  GenerationTypeViews.swift
 //  MusicDemo
 //
-//  Created by Atit Kayastha on 14/03/2026.
+//  Created by Atit Kayastha on 17/03/2026.
 //
 
 import SwiftUI

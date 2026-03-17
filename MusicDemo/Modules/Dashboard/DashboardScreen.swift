@@ -10,7 +10,6 @@ import SwiftUI
 struct DashboardScreen: View {
     @State private var expandSheet: Bool = false
     @Namespace private var animation
-    @State private var showMiniMedia: Bool = false
 
     @State private var showPromptView = false
     @State private var showGradient = false
@@ -18,7 +17,6 @@ struct DashboardScreen: View {
     @State private var text = ""
     @State private var showCreateButton = true
 
-    @State private var gradientShift: CGFloat = -1
     @State private var glowAngle: Double = 0
 
     @StateObject private var songListViewModel = SongListViewModel()
@@ -97,6 +95,8 @@ struct DashboardScreen: View {
             submitPrompt(prompt)
         }
     }
+
+    // MARK: Keyboard gradient view
 
     @ViewBuilder
     private var keyboardGradient: some View {
@@ -238,4 +238,3 @@ struct DashboardScreen: View {
     DashboardScreen()
         .preferredColorScheme(.dark)
 }
- 

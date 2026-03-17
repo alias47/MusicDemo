@@ -49,6 +49,7 @@ struct GeneratingRowView: View {
             Spacer(minLength: 0)
 
             versionBadge
+                .padding(.trailing, 8)
         }
         .padding(.vertical, 8)
         .background(progressBackground)
@@ -118,7 +119,6 @@ struct GeneratingRowView: View {
                 endPoint: .bottomTrailing
             )
 
-//            Image(.album)
             Image(image)
                 .resizable()
                 .scaledToFill()
